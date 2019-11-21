@@ -62,9 +62,13 @@ class App extends Component {
 
   filterByMake() {
     let make = this.selectedMake.value;
-
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+    axios.get(`${baseUrl}/vehicles?make=${make}`).then(res => {
+      this.setState({
+        vehiclesToDisplay: res.data
+      })
+    }).catch((err) => console.log(err))
   }
 
   filterByColor() {
@@ -72,6 +76,11 @@ class App extends Component {
 
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+    axios.get(baseUrl + '/vehicles?color=' + color).then(res => {
+      this.setState({
+        vehiclesToDisplay: res.data
+      })
+    }).catch((err) => console.log(err))
   }
 
   updatePrice(priceChange, id) {
@@ -111,11 +120,21 @@ class App extends Component {
 
     //axios (POST)
     // setState with response -> buyersToDisplay
+    axios.post(baseUrl + '/buyers', newBuyer).then(res => {
+      this.setState({
+        buyersToDisplay: res.data.buyers
+      })
+    })
   }
 
   deleteBuyer(id) {
     // axios (DELETE)
     //setState with response -> buyersToDisplay
+    axios.delete(baseUrl + '/buyers/' + id).then(res => {
+      this.setState({
+        buyersToDisplay: res.data.buyers
+      })
+    }).catch(err => console.log(err));
   }
 
   nameSearch() {
@@ -123,13 +142,22 @@ class App extends Component {
 
     // axios (GET)
     // setState with response -> buyersToDisplay
+    axios.get(baseUrl + '/buyers?name=' + searchLetters).then(res => {
+      this.setState({
+        buyersToDisplay: res.data
+      })
+    }).catch(err => console.log(err));
   }
 
   byYear() {
     let year = this.searchYear.value;
-
     // axios (GET)
     // setState with response -> vehiclesToDisplay
+    axios.get(baseUrl + '/vehicles?year=' + year).then(res => {
+      this.setState({
+        vehiclesToDisplay: res.data
+      })
+    }).catch(err => console.log(err));
   }
 
   // Do not edit the code below
